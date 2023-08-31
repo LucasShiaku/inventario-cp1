@@ -1,9 +1,18 @@
 package br.com.fiap.domain.entity;
 
-public class TipoDeBem {
+import jakarta.persistence.*;
 
+@Entity
+@Table(name = "TB_NOME", uniqueConstraints = {
+        @UniqueConstraint(name = "UK_TIPO_BEM", columnNames = "NM_TIPOBEM")
+})
+public class TipoDeBem {
+    @Id
+    @Column(name = "ID_TIPOBEM")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE,generator = "SQ_TIPOBEM")
     private Long id;
 
+    @Column(name ="NM_TIPOBEM", nullable = false)
     private String nome;
 
     public TipoDeBem() {

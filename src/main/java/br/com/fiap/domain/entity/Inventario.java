@@ -1,16 +1,30 @@
 package br.com.fiap.domain.entity;
 
+import jakarta.persistence.*;
+
 import java.time.LocalDate;
 
+@Entity
 public class Inventario  {
+
+    @Id
+    @Column(name = "ID_INVENTARIO")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SQ_INVENTARIO")
+    @SequenceGenerator(name = "SQ_INVENTARIO", sequenceName = "SQ_INVENTARIO")
     private Long id;
+
+    @Column(name = "NR_INICIO", nullable = false)
 
      private LocalDate inicio;
 
+    @Column(name = "NM_FIM")
     private LocalDate fim;
 
+    @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @JoinColumn(name = "ID_DEPARTAMENTO", referencedColumnName = "ID_DEPARTAMENTO")
     private Departamento departamento;
 
+    @Column(name = "NM_RELATORIO")
     private String relatorio;
 
     public Inventario() {
